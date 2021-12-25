@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print a byte array from an image</title>
+</head>
+<body>
+  <img id="toConvert" src="../assets/monument.jpg" />
+
+  <script>
+
+    const downloadFile = (filename, data) => {
+      const blob = new Blob([data], {type: "octet/stream"});
+      const a = document.createElement("a");
+
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.innerHTML = 'Download binary image pixel data';
+      a.click();
+    }
+
+    setTimeout(() => {
+      const image = document.getElementById('toConvert');
+
+      const canvas = document.createElement('canvas');
+      canvas.height = image.height;
+      canvas.width = image.width;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(image, 0, 0);
+      const imgData = ctx.getImageData(0, 0, image.width, image.height);
+
+      const toHexByte = h => h.toString(16).padStart(2, '0');
+
+      downloadFile('monument.bin', imgData.data);
+    }, 1000);
+  </script>
+</body>
+</html>

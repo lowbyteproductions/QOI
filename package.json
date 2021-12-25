@@ -1,0 +1,23 @@
+{
+  "name": "qio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "img:bin": "http-server .",
+    "build:encode": "cd reference && gcc encode.c -o encode",
+    "build:decode": "cd reference && gcc decode.c -o decode",
+    "build:reference": "npm run build:encode && npm run build:decode",
+    "reference": "cd reference && ./encode && ./decode",
+    "clean": "rm -f assets/monument.bin assets/monument.qoi decoded.bin"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.0.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {},
+  "keywords": [],
+  "description": ""
+}
